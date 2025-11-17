@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Mitigasi Risiko Koperasi</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Libs -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <header class="header">
+      <h1>MITIGASI RISIKO KOPERASI</h1>
+      <p>Dashboard Monitoring dan Analisis</p>
+    </header>
+
+    <!-- UPLOAD -->
+    <section class="upload-section">
+      <div class="upload-wrapper">
+        <label class="file-input-label">
+          📁 Upload File Excel
+          <input type="file" id="fileInput" accept=".xlsx,.xls" />
+        </label>
+        <span class="file-name" id="fileName">Belum ada file dipilih</span>
+      </div>
+      <button id="downloadBtn" class="file-input-label" style="background:#2ecc71;"> 
+        💾 Download Data + Saran
+    </button>
+    <button id="resetBtn" class="file-input-label" style="background:#e74c3c;"> 🗑 Reset Data </button>
+
+
+    </section>
+
+    <!-- FILTERS -->
+    <section class="filters">
+      <div class="filter-group">
+        <label for="filterPropinsi">Filter Propinsi</label>
+        <select id="filterPropinsi">
+          <option value="">Semua Propinsi</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="filterSektor">Filter Sektor Usaha</label>
+        <select id="filterSektor">
+          <option value="">Semua Sektor</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="filterStatus">Filter Status Risiko</label>
+        <select id="filterStatus">
+            <option value="">Semua Status</option>
+            <option value="Belum Diklasifikasi">Belum Diklasifikasi</option>
+            <option value="Tidak Berkualitas">Tidak Berkualitas (Merah)</option>
+            <option value="Cukup Berkualitas">Cukup Berkualitas (Kuning)</option>
+            <option value="Berkualitas">Berkualitas (Hijau)</option> 
+        </select>
+
+      </div>
+    </section>
+
+    <!-- TOP GRID -->
+    <section class="dashboard-grid">
+      <article class="card total-card">
+        <div class="card-title">TOTAL KOPERASI</div>
+        <div class="total-number" id="totalKoperasi">0</div>
+        <p>Koperasi terfilter</p>
+      </article>
+
+      <article class="card">
+        <div class="card-title">STATUS RISIKO</div>
+        <div class="chart-container">
+          <canvas id="statusChart"></canvas>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-title">SEKTOR USAHA (Top 10)</div>
+        <div class="chart-container">
+          <canvas id="sektorChart"></canvas>
+        </div>
+      </article>
+
+      <article class="card map-card">
+        <div class="card-title">SEBARAN KOPERASI</div>
+        <div id="map"></div>
+      </article>
+    </section>
+
+    <!-- TABLE -->
+    <section class="table-section">
+      <div class="table-header">DETAIL KOPERASI</div>
+      <div class="table-wrapper">
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Propinsi</th>
+              <th>Koperasi</th>
+              <th>Klasifikasi</th>
+              <th>Sektor</th>
+              <th>Status</th>
+              <th>Keterangan</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr>
+              <td colspan="7" class="empty-state">
+                📊 Upload file Excel untuk menampilkan data
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+</body>
+</html>
